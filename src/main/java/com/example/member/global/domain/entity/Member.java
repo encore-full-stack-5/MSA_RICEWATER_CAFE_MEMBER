@@ -1,10 +1,7 @@
 package com.example.member.global.domain.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -12,6 +9,7 @@ import java.time.LocalDateTime;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Table(name = "CAFE_MEMBERS"
 //        ,indexes = {@Index(columnList = "MEMBER_ID")}
 )
@@ -39,4 +37,10 @@ public class Member {
     private Boolean memberStatus;
     @Column(name = "JOIN_DATE")
     private LocalDateTime joinDate;
+    @Column(name = "USER_ID")
+    private Long userId;
+    @Column(name = "CAFE_ID")
+    private Long cafeId;
+    @Column(name = "RANK_ID")
+    private Long rankId;
 }
