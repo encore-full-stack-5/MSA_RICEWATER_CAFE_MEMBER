@@ -1,8 +1,10 @@
 package com.example.member.global.domain.repository;
 
 import com.example.member.dto.request.MemberRequest;
+import com.example.member.dto.request.UpdateMemberRequest;
 import com.example.member.global.domain.entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 
 import java.util.List;
 
@@ -20,7 +22,7 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
      *   FROM CAFE_MEMBERS M
      *  WHERE MEMBER_STATUS = 0
      */
-    Boolean findByisMemberStatusFalse(Boolean memberStatus);
+//    Boolean findByisMemberStatusFalse(Boolean memberStatus);
 
     /*
      * SELECT M.*
@@ -28,13 +30,4 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
      *  WHERE CAFE_ID = ?
      */
     List<Member> findMembersByCafeId(Long cafeId);
-
-    /*
-     * SELECT M.*
-     *   FROM CAFE_MEMBERS M
-     *  WHERE MEMBER_ID = ?
-     */
-    MemberRequest findAllById(Long memberId, Long cafeId);
-
-    void save(Member memberEntity, Long userId);
 }

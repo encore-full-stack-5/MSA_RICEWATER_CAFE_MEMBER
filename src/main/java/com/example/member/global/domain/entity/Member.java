@@ -31,9 +31,9 @@ public class Member {
     @Setter
     private Boolean ageVisibilityOption;
     @Column(name = "JOIN_ANSWER")
-    @Setter
     private String joinAnswer;
     @Column(name = "MEMBER_STATUS")
+    @Setter
     private Boolean memberStatus;
     @Column(name = "JOIN_DATE")
     private LocalDateTime joinDate;
@@ -42,5 +42,6 @@ public class Member {
     @Column(name = "CAFE_ID")
     private Long cafeId;
     @Column(name = "RANK_ID")
+    @Setter
     private Long rankId;
 }

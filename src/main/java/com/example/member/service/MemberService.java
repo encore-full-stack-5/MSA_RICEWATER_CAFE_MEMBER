@@ -1,8 +1,8 @@
 package com.example.member.service;
 
 import com.example.member.dto.request.MemberRequest;
+import com.example.member.dto.request.UpdateMemberRequest;
 import com.example.member.dto.response.MemberResponse;
-import com.example.member.global.domain.entity.Member;
 
 import java.util.List;
 
@@ -17,13 +17,13 @@ public interface MemberService {
 
 
     /*
-     * @param memberId, cafeId
+     * @param memberId
      * @return Member
      * @method GET
      *
      * 카페 멤버를 조회한다 (단일 조회)
      */
-    MemberRequest getMemberByMemberId(Long memberId, Long cafeId);
+    MemberResponse getMemberByMemberId(Long memberId);
 
     /*
      * @param cafeId
@@ -41,16 +41,16 @@ public interface MemberService {
      *
      * 카페에 가입한 멤버를 추가한다
      */
-    void createMemberId(Long userId, MemberRequest memberRequest);
+    void createMemberId(MemberRequest memberRequest);
 
     /*
      * @param memberId, memberRequest
-     * @return Member
+     * @return void
      * @method PUT
      *
      * 멤버 정보 수정한다 (닉네임 중복 X)
      */
-    MemberRequest updateMemberId(Long memberId, MemberRequest memberRequest);
+    void updateMemberId(Long id, UpdateMemberRequest updateMemberRequest);
 
     /*
      * @param memberId, cafeId
@@ -59,5 +59,5 @@ public interface MemberService {
      *
      * 멤버 카페 탈퇴
      */
-    MemberRequest deletedMemberId(Long memberId, Long cafeId);
+    void deletedMemberId(Long id);
 }

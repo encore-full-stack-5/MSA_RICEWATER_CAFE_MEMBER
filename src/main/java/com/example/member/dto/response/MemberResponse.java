@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 
 // 응답
 public record MemberResponse(
+        String id,
         String profileImage,
         String nickname,
         String aboutMe,
@@ -19,6 +20,7 @@ public record MemberResponse(
 ) {
     public static MemberResponse from(Member member) {
         return new MemberResponse(
+                member.getId().toString(),
                 member.getProfileImage(),
                 member.getNickname(),
                 member.getAboutMe(),

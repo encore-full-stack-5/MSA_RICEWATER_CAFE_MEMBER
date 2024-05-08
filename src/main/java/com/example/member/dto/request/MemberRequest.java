@@ -14,7 +14,7 @@ public record MemberRequest(
         Long userId,
         Long cafeId,
         Long rankId,
-        String joinDate
+        LocalDateTime joinDate
 ) {
     public Member toEntity() {
         return Member.builder()
@@ -24,7 +24,7 @@ public record MemberRequest(
                 .aboutMe(aboutMe)
                 .ageVisibilityOption(ageVisibilityOption)
                 .joinAnswer(joinAnswer)
-                .memberStatus(memberStatus)
+                .memberStatus(false)
                 .userId(userId)
                 .cafeId(cafeId)
                 .rankId(rankId)
