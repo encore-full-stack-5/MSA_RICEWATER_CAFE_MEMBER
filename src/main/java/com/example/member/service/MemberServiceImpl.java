@@ -3,10 +3,16 @@ package com.example.member.service;
 import com.example.member.dto.request.MemberRequest;
 import com.example.member.dto.request.UpdateMemberRequest;
 import com.example.member.dto.response.MemberResponse;
+import com.example.member.exception.AlreadyWithdrawException;
+import com.example.member.exception.ExistNicknameException;
+import com.example.member.exception.ExistUserException;
+import com.example.member.exception.MemberNotFoundException;
 import com.example.member.global.domain.entity.Member;
 import com.example.member.global.domain.repository.MemberRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,19 +25,17 @@ public class MemberServiceImpl implements MemberService {
 
     // 카페 멤버 조회 (단일 조회)
     @Override
-    public MemberResponse getMemberByMemberId(Long memberId) {
-        Optional<Member> byId = memberRepository.findById(memberId);
-        Member member = byId.orElseThrow(IllegalArgumentException::new);
+    public MemberResponse getMemberById(Long id) {
+        Optional<Member> byId = memberRepository.findByMemberStatusFalseAndId(id);
+        Member member = byId.orElseThrow(() -> new MemberNotFoundException(id));
         return MemberResponse.from(member);
     }
 
     // 카페별 가입된 멤버 조회
     @Override
-    public List<MemberResponse> getCafeMembersByCafeId(Long cafeId) {
-        return memberRepository.findMembersByCafeId(cafeId)
-                .stream()
-                .map(MemberResponse::from)
-                .toList();
+    public List<MemberResponse> getCafeMembersByCafeId(Long cafeId, Pageable pageable) {
+        List<Member> all = memberRepository.findByMemberStatusFalseAndCafeId(cafeId, pageable);
+        return all.stream().map(MemberResponse::from).toList();
     }
 
     // 카페에 가입한 멤버 추가
@@ -40,6 +44,10 @@ public class MemberServiceImpl implements MemberService {
     public void createMemberId(
             MemberRequest memberRequest
     ) {
+        Optional<Member> byUserId = memberRepository.findByUserId(memberRequest.userId());
+        if(byUserId.isPresent()) throw new ExistUserException(memberRequest.userId());
+        Optional<Member> byNickname = memberRepository.findByNickname(memberRequest.nickname());
+        if(byNickname.isPresent()) throw new ExistNicknameException(memberRequest.nickname());
         memberRepository.save(memberRequest.toEntity());
     }
 
@@ -48,7 +56,9 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public void updateMemberId(Long id, UpdateMemberRequest request) {
         Optional<Member> byId = memberRepository.findById(id);
-        Member member = byId.orElseThrow(IllegalArgumentException::new);
+        Member member = byId.orElseThrow(() -> new MemberNotFoundException(id));
+        Optional<Member> byNickname = memberRepository.findByNickname(request.nickname());
+        if(byNickname.isPresent()) throw new ExistNicknameException(request.nickname());
 
         member.setNickname(request.nickname());
         member.setProfileImage(request.profileImage());
@@ -62,7 +72,7 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public void deletedMemberId(Long id) {
         Optional<Member> byId = memberRepository.findById(id);
-        Member member = byId.orElseThrow(IllegalArgumentException::new);
+        Member member = byId.orElseThrow(() -> new AlreadyWithdrawException(id));
 
         member.setMemberStatus(true);
     }

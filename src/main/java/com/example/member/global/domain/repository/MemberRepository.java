@@ -3,19 +3,22 @@ package com.example.member.global.domain.repository;
 import com.example.member.dto.request.MemberRequest;
 import com.example.member.dto.request.UpdateMemberRequest;
 import com.example.member.global.domain.entity.Member;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 public interface MemberRepository extends JpaRepository<Member, Long> {
     /*
      * SELECT M.*
      *   FROM CAFE_MEMBERS M
-     *  WHERE MEMBER_STATUS = ?
-     *    AND USER_ID = ?
+     *  WHERE M.MEMBER_STATUS = 0
+     *    AND M.ID = ?
      */
-    List<Member> findByMemberStatusAndUserId(Boolean memberStatus, Long userId);
+    Optional<Member> findByMemberStatusFalseAndId(Long id);
 
     /*
      * SELECT M.*
@@ -29,5 +32,9 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
      *   FROM CAFE_MEMBERS M
      *  WHERE CAFE_ID = ?
      */
-    List<Member> findMembersByCafeId(Long cafeId);
+    List<Member> findByMemberStatusFalseAndCafeId(Long cafeId, Pageable pageable);
+
+    Optional<Member> findByNickname(String nickname);
+
+    Optional<Member> findByUserId(UUID userId);
 }

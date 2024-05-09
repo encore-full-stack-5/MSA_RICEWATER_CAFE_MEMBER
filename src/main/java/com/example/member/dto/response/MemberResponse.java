@@ -3,6 +3,7 @@ package com.example.member.dto.response;
 import com.example.member.global.domain.entity.Member;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 // 응답
 public record MemberResponse(
@@ -13,7 +14,7 @@ public record MemberResponse(
         Boolean ageVisibilityOption,
         String joinAnswer,
         Boolean memberStatus,
-        Long userId,
+        UUID userId,
         Long cafeId,
         Long rankId,
         LocalDateTime joinDate

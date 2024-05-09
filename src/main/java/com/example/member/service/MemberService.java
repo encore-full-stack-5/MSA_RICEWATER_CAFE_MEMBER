@@ -3,6 +3,7 @@ package com.example.member.service;
 import com.example.member.dto.request.MemberRequest;
 import com.example.member.dto.request.UpdateMemberRequest;
 import com.example.member.dto.response.MemberResponse;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -23,7 +24,7 @@ public interface MemberService {
      *
      * 카페 멤버를 조회한다 (단일 조회)
      */
-    MemberResponse getMemberByMemberId(Long memberId);
+    MemberResponse getMemberById(Long id);
 
     /*
      * @param cafeId
@@ -32,7 +33,7 @@ public interface MemberService {
      *
      * 카페별 가입된 멤버를 조회한다
      */
-    List<MemberResponse> getCafeMembersByCafeId(Long cafeId);
+    List<MemberResponse> getCafeMembersByCafeId(Long cafeId, Pageable pageable);
 
     /*
      * @param userId, memberRequest

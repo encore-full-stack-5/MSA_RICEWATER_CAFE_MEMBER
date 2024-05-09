@@ -3,6 +3,7 @@ package com.example.member.dto.request;
 import com.example.member.global.domain.entity.Member;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 public record MemberRequest(
         String profileImage,
@@ -11,7 +12,7 @@ public record MemberRequest(
         Boolean ageVisibilityOption,
         String joinAnswer,
         Boolean memberStatus,
-        Long userId,
+        UUID userId,
         Long cafeId,
         Long rankId,
         LocalDateTime joinDate

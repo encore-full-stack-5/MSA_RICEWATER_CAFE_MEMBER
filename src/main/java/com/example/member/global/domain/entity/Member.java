@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -38,7 +39,7 @@ public class Member {
     @Column(name = "JOIN_DATE")
     private LocalDateTime joinDate;
     @Column(name = "USER_ID")
-    private Long userId;
+    private UUID userId;
     @Column(name = "CAFE_ID")
     private Long cafeId;
     @Column(name = "RANK_ID")
