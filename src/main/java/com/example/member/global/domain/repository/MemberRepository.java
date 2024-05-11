@@ -1,43 +1,40 @@
 package com.example.member.global.domain.repository;
 
+import com.example.member.dto.request.MemberRequest;
+import com.example.member.dto.request.UpdateMemberRequest;
 import com.example.member.global.domain.entity.Member;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.Modifying;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 public interface MemberRepository extends JpaRepository<Member, Long> {
     /*
-     * 내가 가입한 카페 목록을 조회한다
-     * select * from cafe_members where user_id = ?
+     * SELECT M.*
+     *   FROM CAFE_MEMBERS M
+     *  WHERE M.MEMBER_STATUS = 0
+     *    AND M.ID = ?
      */
-
+    Optional<Member> findByMemberStatusFalseAndId(Long id);
 
     /*
-     * 카페 멤버를 조회한다 (단일 조회)
-     * select * from cafe_members where cafe_id = ? and member_id = ?
+     * SELECT M.*
+     *   FROM CAFE_MEMBERS M
+     *  WHERE MEMBER_STATUS = 0
      */
-
+//    Boolean findByisMemberStatusFalse(Boolean memberStatus);
 
     /*
-     * 카페별 가입된 멤버를 조회한다
-     * select * from cafe_members where cafe_id = ?
+     * SELECT M.*
+     *   FROM CAFE_MEMBERS M
+     *  WHERE CAFE_ID = ?
      */
+    List<Member> findByMemberStatusFalseAndCafeId(Long cafeId, Pageable pageable);
 
+    Optional<Member> findByNickname(String nickname);
 
-    /*
-     * 카페에 가입한 멤버 추가한다
-     * insert
-     */
-
-
-    /*
-     * 멤버 정보 수정한다
-     * update
-     */
-
-
-    //  select * from cafe_members where member_id = ?
-//    List<Member> findByMemberId(int memberId);
-    // 필요한 쿼리 넣어
+    Optional<Member> findByUserId(UUID userId);
 }

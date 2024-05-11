@@ -1,5 +1,12 @@
 package com.example.member.service;
 
+import com.example.member.dto.request.MemberRequest;
+import com.example.member.dto.request.UpdateMemberRequest;
+import com.example.member.dto.response.MemberResponse;
+import org.springframework.data.domain.Pageable;
+
+import java.util.List;
+
 public interface MemberService {
     /*
      * @param userId
@@ -17,7 +24,7 @@ public interface MemberService {
      *
      * 카페 멤버를 조회한다 (단일 조회)
      */
-
+    MemberResponse getMemberById(Long id);
 
     /*
      * @param cafeId
@@ -26,25 +33,25 @@ public interface MemberService {
      *
      * 카페별 가입된 멤버를 조회한다
      */
-
+    List<MemberResponse> getCafeMembersByCafeId(Long cafeId, Pageable pageable);
 
     /*
-     * @param userId, cafeId
+     * @param userId, memberRequest
      * @return Member
      * @method POST
      *
-     * 카페에 가입한 멤버 추가한다
+     * 카페에 가입한 멤버를 추가한다
      */
-
+    void createMemberId(MemberRequest memberRequest);
 
     /*
-     * @param memberId, cafeId
-     * @return Member
+     * @param memberId, memberRequest
+     * @return void
      * @method PUT
      *
-     * 멤버 정보 수정한다
+     * 멤버 정보 수정한다 (닉네임 중복 X)
      */
-
+    void updateMemberId(Long id, UpdateMemberRequest updateMemberRequest);
 
     /*
      * @param memberId, cafeId
@@ -53,6 +60,5 @@ public interface MemberService {
      *
      * 멤버 카페 탈퇴
      */
-
-
+    void deletedMemberId(Long id);
 }
