@@ -38,9 +38,9 @@ public class ExceptionController {
         return e.getMessage();
     }
 
-    @ExceptionHandler(AlreadyWithdrawException.class)
+    @ExceptionHandler(AlreadyDeletedException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public String handlerAlreadyWithdrawException(AlreadyWithdrawException e) {
+    public String handlerAlreadyWithdrawException(AlreadyDeletedException e) {
         log.debug(e.getMessage());
         return e.getMessage();
     }

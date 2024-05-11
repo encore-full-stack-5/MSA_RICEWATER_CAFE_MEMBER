@@ -3,7 +3,7 @@ package com.example.member.service;
 import com.example.member.dto.request.MemberRequest;
 import com.example.member.dto.request.UpdateMemberRequest;
 import com.example.member.dto.response.MemberResponse;
-import com.example.member.exception.AlreadyWithdrawException;
+import com.example.member.exception.AlreadyDeletedException;
 import com.example.member.exception.ExistNicknameException;
 import com.example.member.exception.ExistUserException;
 import com.example.member.exception.MemberNotFoundException;
@@ -11,7 +11,6 @@ import com.example.member.global.domain.entity.Member;
 import com.example.member.global.domain.repository.MemberRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -71,8 +70,8 @@ public class MemberServiceImpl implements MemberService {
     @Transactional
     @Override
     public void deletedMemberId(Long id) {
-        Optional<Member> byId = memberRepository.findById(id);
-        Member member = byId.orElseThrow(() -> new AlreadyWithdrawException(id));
+        Optional<Member> byId = memberRepository.findByMemberStatusFalseAndId(id);
+        Member member = byId.orElseThrow(() -> new AlreadyDeletedException(id));
 
         member.setMemberStatus(true);
     }
