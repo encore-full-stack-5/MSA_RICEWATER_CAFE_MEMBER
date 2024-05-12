@@ -1,7 +1,6 @@
 package com.example.member.service;
 
 import com.example.member.dto.request.MemberRequest;
-import com.example.member.dto.request.UpdateMemberRequest;
 import com.example.member.dto.response.MemberResponse;
 import org.springframework.data.domain.Pageable;
 
@@ -51,7 +50,7 @@ public interface MemberService {
      *
      * 멤버 정보 수정한다 (닉네임 중복 X)
      */
-    void updateMemberId(Long id, UpdateMemberRequest updateMemberRequest);
+    void updateMemberId(Long id, MemberRequest memberRequest);
 
     /*
      * @param memberId, cafeId

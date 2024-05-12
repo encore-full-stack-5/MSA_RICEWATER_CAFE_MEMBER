@@ -1,11 +1,8 @@
 package com.example.member.global.domain.repository;
 
-import com.example.member.dto.request.MemberRequest;
-import com.example.member.dto.request.UpdateMemberRequest;
 import com.example.member.global.domain.entity.Member;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 
 import java.util.List;
 import java.util.Optional;

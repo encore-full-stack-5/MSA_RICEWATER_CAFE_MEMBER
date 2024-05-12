@@ -1,7 +1,6 @@
 package com.example.member.service;
 
 import com.example.member.dto.request.MemberRequest;
-import com.example.member.dto.request.UpdateMemberRequest;
 import com.example.member.dto.response.MemberResponse;
 import com.example.member.exception.AlreadyDeletedException;
 import com.example.member.exception.ExistNicknameException;
@@ -53,7 +52,7 @@ public class MemberServiceImpl implements MemberService {
     // 멤버 정보 수정
     @Transactional
     @Override
-    public void updateMemberId(Long id, UpdateMemberRequest request) {
+    public void updateMemberId(Long id, MemberRequest request) {
         Optional<Member> byId = memberRepository.findById(id);
         Member member = byId.orElseThrow(() -> new MemberNotFoundException(id));
         Optional<Member> byNickname = memberRepository.findByNickname(request.nickname());

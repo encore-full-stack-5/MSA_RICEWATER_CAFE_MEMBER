@@ -1,7 +1,6 @@
 package com.example.member.controller;
 
 import com.example.member.dto.request.MemberRequest;
-import com.example.member.dto.request.UpdateMemberRequest;
 import com.example.member.dto.response.MemberResponse;
 import com.example.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -56,9 +55,9 @@ public class MemberController {
     @PutMapping("/{id}")
     public void updateMemberId(
             @PathVariable("id") Long id,
-            @RequestBody UpdateMemberRequest updateMemberRequest
+            @RequestBody MemberRequest memberRequest
     ) {
-        memberService.updateMemberId(id, updateMemberRequest);
+        memberService.updateMemberId(id, memberRequest);
     }
 
     // 멤버 카페 탈퇴
